@@ -27,6 +27,13 @@ public class RickMortyApiService {
         return body;
     }
 
+    public RickMortyApiResponse loadAllCharactersByStatus(String status) {
+        return restClient.get()
+                .uri("/api/character?status=" + status)
+                .retrieve()
+                .body(RickMortyApiResponse.class);
+    }
+
     public RickMortyApiCharacter loadCharacterById(String id) {
         return restClient.get()
                 .uri("/api/character/" + id)

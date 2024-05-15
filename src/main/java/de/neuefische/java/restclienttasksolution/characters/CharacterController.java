@@ -1,10 +1,7 @@
 package de.neuefische.java.restclienttasksolution.characters;
 
 import de.neuefische.java.restclienttasksolution.characters.api.RickMortyApiCharacter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +16,11 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<RickMortyApiCharacter> getAllCharacters() {
-        return rickMortyApiService.loadAllCharacters().results();
+    public List<RickMortyApiCharacter> getAllCharacters(@RequestParam(required = false) String status) {
+        if (status == null) {
+            return rickMortyApiService.loadAllCharacters().results();
+        }
+        return rickMortyApiService.loadAllCharactersByStatus(status).results();
     }
 
     @GetMapping("{id}")
