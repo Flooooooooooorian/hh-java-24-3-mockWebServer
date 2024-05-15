@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/characters")
+@RequestMapping("/api")
 public class CharacterController {
 
     private final RickMortyApiService rickMortyApiService;
@@ -15,7 +15,7 @@ public class CharacterController {
         this.rickMortyApiService = rickMortyApiService;
     }
 
-    @GetMapping
+    @GetMapping("characters")
     public List<RickMortyApiCharacter> getAllCharacters(@RequestParam(required = false) String status) {
         if (status == null) {
             return rickMortyApiService.loadAllCharacters().results();
@@ -23,8 +23,13 @@ public class CharacterController {
         return rickMortyApiService.loadAllCharactersByStatus(status).results();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("characters/{id}")
     public  RickMortyApiCharacter getCharacterById(@PathVariable String id){
         return rickMortyApiService.loadCharacterById(id);
+    }
+
+    @GetMapping("species-statistic")
+    public int getSpeciesStatistics(@RequestParam String species) {
+        return rickMortyApiService.loadSpeciesCount(species);
     }
 }

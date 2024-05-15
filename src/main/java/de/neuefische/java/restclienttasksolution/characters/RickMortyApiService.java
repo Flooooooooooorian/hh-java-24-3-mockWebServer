@@ -40,4 +40,13 @@ public class RickMortyApiService {
                 .retrieve()
                 .body(RickMortyApiCharacter.class);
     }
+
+    public int loadSpeciesCount(String species) {
+        return restClient.get()
+                .uri("/api/character?species=" + species)
+                .retrieve()
+                .body(RickMortyApiResponse.class)
+                .info()
+                .count();
+    }
 }
