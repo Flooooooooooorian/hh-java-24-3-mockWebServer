@@ -11,9 +11,9 @@ public class RickMortyApiService {
 
     private final RestClient restClient;
 
-    public RickMortyApiService() {
+    public RickMortyApiService(@Value("${app.rickandmorty.api.url}") String url) {
         this.restClient = RestClient.builder()
-                .baseUrl("http://rickandmortyapi.com")
+                .baseUrl(url)
                 .build();
     }
 
